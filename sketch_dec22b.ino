@@ -383,7 +383,7 @@ void loop() {
             // the content of the HTTP response follows the header:
             client.print("Click <a href=\"/H\">here</a> turn the LED on<br>");
             client.print("Click <a href=\"/L\">here</a> turn the LED off<br>");
-            client.print(" <form action=\"/form\" method=\"get\"> <input type=\"number\" id=\"name\" name=\"user_name\" /> <button type=\"submit\">Send your message</button> </form> ");
+            client.print(" <form action=\"/form\" method=\"get\"> <input type=\"number\" id=\"name\" name=\"user_name\" /> <button type=\"submit\">Set Alarm</button> </form> ");
 
             // The HTTP response ends with another blank line:
             client.println();
@@ -458,7 +458,7 @@ void setAlarmForWater(String currentData){
   rtc.clearAlarm(2);
   if(!rtc.setAlarm2(
            DateTime(rtc.now().year(), rtc.now().month(), rtc.now().day(), hours, minutes, 0),
-            DS3231_A2_Hour // this mode triggers the alarm when the seconds match. See Doxygen for other options
+            DS3231_A2_Minute // this mode triggers the alarm when the seconds match. See Doxygen for other options
   )){
     Serial.println("ERERERERRERRREFERGFDFDBFD");
   }
