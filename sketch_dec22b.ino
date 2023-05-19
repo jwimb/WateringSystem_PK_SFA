@@ -9,6 +9,7 @@
 #define SW_PIN 4
 #define MOIST_BORDER 450
 #define MOIST_BORDER_LOWEST 550
+#define PUMP_DURATION 10000
 
 #define OLED_WIDTH 128
 #define OLED_HEIGHT 64
@@ -336,7 +337,7 @@ void loop() {
     if(rtc.alarmFired(2)){
       Serial.print("HELLO ALARM");
       rtc.clearAlarm(2);
-      delay(10000);
+      delay(PUMP_DURATION);
       digitalWrite(PUMP_PIN, LOW);
       //TODO: Find Better Way for this maybe?
     }
