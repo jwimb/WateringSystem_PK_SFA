@@ -474,19 +474,25 @@ void setAlarmForWater(String currentData){
 void onAlarm() {  
   Serial.println("Alarm occured!");
   //Check if Control-Conditions are met
-  if(digitalRead(SW_PIN)== HIGH && analogRead(A0) > MOIST_BORDER){
+  if(digitalRead(SW_PIN)== HIGH){
+    //Control enabled
+    //Check Soil hudidity
+    if(analogRead(A0) > MOIST_BORDER){
+      //Time -> noon
+      if(rtc.now().hour() == 12 || rtc.now().hour() == 11 || rtc.now().hour() == 13){
+        if(analogRead(A0) > MOIST_BORDER_LOWEST){
+          digitalWrite(PUMP_PIN, HIGH);   
+        }
+      }
+      else{
+        digitalWrite(PUMP_PIN, HIGH);
+      }
+    }
     return;
   }
   else{
-    //Mittagszeit
-    if(rtc.now().hour() == 12 || rtc.now().hour() == 11 || rtc.now().hour() == 13){
-      if(analogRead(A0) > MOIST_BORDER_LOWEST){
-        digitalWrite(PUMP_PIN, HIGH);   
-      }
-    }
-    else{
-      digitalWrite(PUMP_PIN, HIGH);
-    }
+    //Control disabled
+    digitalWrite(PUMP_PIN, HIGH);
   }
 
 }
